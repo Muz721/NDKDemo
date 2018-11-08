@@ -6,7 +6,7 @@
 #define NDKDEMO_MAIN_H
 #include <jni.h>
 #include <string>
-#include <>
+#include <android/log.h>
 using namespace std;
 
 class main {
