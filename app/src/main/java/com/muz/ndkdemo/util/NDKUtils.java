@@ -27,4 +27,6 @@ public class NDKUtils {
     }
     public static native String spliceStaticJNI();
     public static native String spliceJNI();
+
+    public static native String md5JNI(String encrypt);
 }

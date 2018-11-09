@@ -4,6 +4,7 @@
 
 #include <string.h>
 #include "main.h"
+#include "Md5Utils.h"
 
 extern "C" JNIEXPORT jstring JNICALL Java_com_muz_ndkdemo_util_NDKUtils_stringFromMainJNI(
         JNIEnv *env) {
@@ -34,16 +35,29 @@ extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_muz_ndkdemo_util_NDKUtils_spliceJNI(JNIEnv *env, jobject /* this */, jstring str) {
     jclass jclass1 = env->FindClass("com/muz/ndkdemo/util/NDKUtils");
-    jmethodID mainId = env ->GetMethodID(jclass1,"<init>","()V");
-    jobject jobject1 = env -> NewObject(jclass1,mainId);
+    jmethodID mainId = env->GetMethodID(jclass1, "<init>", "()V");
+    jobject jobject1 = env->NewObject(jclass1, mainId);
     jmethodID id = env->GetMethodID(jclass1, "javaString", "()Ljava/lang/String;");
     jstring jstring1 = (jstring) env->CallObjectMethod(jobject1, id);
     string cjs = "c++里的字符串。";
-    string sf = env->GetStringUTFChars(jstring1,false);
+    string sf = env->GetStringUTFChars(jstring1, false);
     cjs += sf;
     env->ReleaseStringUTFChars(jstring1, sf.c_str());
     return env->NewStringUTF(cjs.c_str());
 }
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_muz_ndkdemo_util_NDKUtils_md5JNI(JNIEnv *env, jobject /* this */, jstring str) {
+    string encrypt = env->GetStringUTFChars(str, false);
+    string encrypt32;
+    Md5Utils *md5Utils = new Md5Utils();
+    encrypt32 = md5Utils->Md5Utils::encryption16((char *) encrypt.c_str());
+    LOGE("加密结果： %s \n", encrypt32.c_str());
+    env->ReleaseStringUTFChars(str, encrypt.c_str());
+    return env->NewStringUTF(encrypt.c_str());
+}
+
 int main::add(int a, int b) {
 
 }

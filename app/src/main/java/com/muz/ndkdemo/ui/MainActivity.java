@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //tv.setText(NDKUtils.stringFromMainJNI()+"___"+NDKUtils.maxMainJNI());
         tv.setText(NDKUtils.spliceJNI());
+        NDKUtils.md5JNI("admin");
     }
 }
 
