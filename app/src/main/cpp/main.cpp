@@ -50,10 +50,9 @@ extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_muz_ndkdemo_util_NDKUtils_md5JNI(JNIEnv *env, jobject /* this */, jstring str) {
     string encrypt = env->GetStringUTFChars(str, false);
-    string encrypt32;
     Md5Utils *md5Utils = new Md5Utils();
-    encrypt32 = md5Utils->Md5Utils::encryption16((char *) encrypt.c_str());
-    LOGE("加密结果： %s \n", encrypt32.c_str());
+    encrypt = md5Utils->Md5Utils::encryption16((char *) encrypt.c_str());
+    LOGE("加密结果： %s \n", encrypt.c_str());
     env->ReleaseStringUTFChars(str, encrypt.c_str());
     return env->NewStringUTF(encrypt.c_str());
 }
