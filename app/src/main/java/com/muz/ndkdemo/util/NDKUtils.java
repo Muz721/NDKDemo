@@ -29,4 +29,5 @@ public class NDKUtils {
     public static native String spliceJNI();
 
     public static native String md5JNI(String encrypt);
+    public static native int[] imageBrightnessJNI(int[] buffer,int width,int height);
 }

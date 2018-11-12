@@ -1,10 +1,7 @@
 //
 // Created by Administrator on 2018/11/8.
 //
-
-#include <string.h>
 #include "main.h"
-#include "Md5Utils.h"
 
 extern "C" JNIEXPORT jstring JNICALL Java_com_muz_ndkdemo_util_NDKUtils_stringFromMainJNI(
         JNIEnv *env) {
@@ -56,7 +53,16 @@ Java_com_muz_ndkdemo_util_NDKUtils_md5JNI(JNIEnv *env, jobject /* this */, jstri
     env->ReleaseStringUTFChars(str, encrypt.c_str());
     return env->NewStringUTF(encrypt.c_str());
 }
-
+extern "C"
+JNIEXPORT jintArray Java_com_muz_ndkdemo_util_NDKUtils_imageBrightnessJNI(JNIEnv * env,jobject /* this */, jintArray buffer, jint width, jint height){
+    int* source = env->GetIntArrayElements(buffer, false);
+    int newSize = width * height;
+    source = ImageBrightness::brightness(source,width,height);
+    jintArray result = env->NewIntArray(newSize);
+    env->SetIntArrayRegion(result,0,newSize,source);
+    env->ReleaseIntArrayElements(buffer,source,0);
+    return result;
+}
 int main::add(int a, int b) {
 
 }
